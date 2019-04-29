@@ -4,9 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use Image;
+use App\User;
+use Auth;
 
 class ProductController extends Controller
 {
+
+    public function __construct(){
+      $this->middleware('auth');
+      $this->model = new Product;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+      $products = $this->model->getUserId();
+      return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -24,7 +34,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+      return view('admin.products.create');
     }
 
     /**
@@ -35,7 +45,26 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      // upload images
+      $file = $request->file('image_url');
+      $ext = $file->getClientOriginalExtension();
+
+      $dateTime = date('Ymd_his');
+      $newName = 'image_'.$dateTime.'.'.$ext;
+      $file->move(public_path(env('PATH_IMAGE')),$newName);
+
+      // save database
+      $product = new Product();
+      $product->user_id = Auth::user()->id;
+      $product->name = $request->post('name');
+      $product->price = $request->post('price');
+      $product->description = $request->post('description');
+      $product->image_url = $newName;
+
+      $product->save();
+      return redirect()->route('admin.products.index')->with('success', 'Produk berhasil disimpan !');
+
+
     }
 
     /**
@@ -46,7 +75,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+      $product = Product::where('id', $id)->get();
+      return view('admin.products.show', ['products'=>$product]);
     }
 
     /**
@@ -57,7 +87,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+      $product = Product::where('id', $id)->get();
+      return view('admin.products.edit', ['products'=>$product]);
     }
 
     /**
@@ -69,7 +100,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $prod_update = $request->validate([
+        'name' => 'required|max:255',
+        'price' => 'required',
+        'description' => 'required'
+      ]);
+
+      Product::whereId($id)->update($prod_update);
+      return redirect()->route('admin.products.index')->with('success', 'Produk berhasil diupdate !');
     }
 
     /**
@@ -80,6 +118,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $product = Product::where('id', $id)->delete();
+      return redirect()->route('admin.products.index');
     }
 }

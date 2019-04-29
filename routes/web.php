@@ -15,17 +15,46 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// first
 Auth::routes();
+// after
+Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route product access by admin
-Route::prefix('admin/products')->group(function(){
-  Route::get('/','ProductController@index')->name('admin/products.index');
-  Route::get('/create', 'ProductController@create')->name('admin/products.create');
-  Route::post('/store', 'ProductController@store')->name('admin/products.store');
-  Route::get('/{photo}', 'ProductController@show')->name('admin/products.show');
-  Route::get('/{product_id}/edit', 'ProductController@edit')->name('admin/products.edit');
-  Route::patch('/{product_id}', 'ProductController@update')->name('admin/products.update');
-  Route::delete('/{product_id}', 'ProductController@delete')->name('admin/products.delete');
+// Route Admin Products
+Route::name('admin.')->group(function(){
+  Route::group(['prefix'=>'admin'], function(){
+    Route::resource('products', 'Admin\ProductController');
+    Route::get('/products/image/{imageName}', 'Admin\ProductController@image')->name('product.image');
+
+    Route::resource('orders', 'Admin\OrderController');
+  });
+});
+
+// Route Just a Products
+Route::get('/products','ProductController@index')->name('products.index');
+Route::get('/products/{id}','ProductController@show')->name('products.show');
+Route::get('/products/image/{imageName}','ProductController@image')->name('products.image');
+
+// Route Images
+Route::prefix('image')->group(function(){
+  Route::get('/', 'ImageController@index')->name('image.index');
+  Route::get('/insert', 'ImageController@create')->name('image_insert');
+  Route::post('/save', 'ImageController@store')->name('image_save');
+  Route::get('/view/{fileImage}', 'ImageController@viewImage')->name('image_view');
+});
+
+// Route carts
+Route::prefix('carts')->group(function(){
+  Route::get('/', 'CartController@index')->name('carts.index');
+  Route::get('/add/{id}', 'CartController@add')->name('carts.add');
+  Route::patch('/update', 'CartController@update')->name('carts.update');
+  Route::delete('/remove', 'CartController@remove')->name('carts.remove');
+});
+
+// Route publics
+Route::prefix('public')->group(function(){
+  Route::get('/', 'PublicController@index')->name('public.products.index');
+  Route::get('/show/{id}', 'PublicController@show')->name('public.products.show');
 });

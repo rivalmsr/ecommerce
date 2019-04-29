@@ -35,7 +35,35 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                      <?php if(Auth::check()): ?>
+                         <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Product</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="<?php echo e(route('admin.products.index')); ?>">List</a>
+                                <a class="dropdown-item" href="<?php echo e(route('admin.products.create')); ?>">Tambah</a>
+                                <!-- <a class="dropdown-item" href="<?php echo e(route('image.index')); ?>">Gambar</a> -->
+                            </div>
+                        </li>
+                        <?php
+                        var_dump(session('cart'));
+                        die();
+                         ?>
+                        <!-- Carts Nav -->
+                        <li class="nav-item">
+                          <a href="<?php echo e(route('carts.index')); ?>" class="btn btn-primary btn-block">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>Cart
+                            <span class="badge badge-pill badge-danger">
+                              <?php if(session('cart')): ?>
+                                <?php echo e(count(Session::All())); ?>
 
+                              <?php else: ?>
+                                0
+                              <?php endif; ?>
+                            </span>
+                          </a>
+                        </li>
+                        <?php endif; ?>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
