@@ -5,7 +5,7 @@
         <div class="col">
           <h2>Menambahkan Alamat</h2>
           <br>
-          @if(count($error))
+          @if(count($errors))
             <div class="form-group">
               <div class="alert alert-danger">
                 <ul>

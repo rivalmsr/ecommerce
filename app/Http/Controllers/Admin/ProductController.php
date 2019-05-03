@@ -25,7 +25,7 @@ class ProductController extends Controller
     {
       $products = $this->model->getUserId();
       return view('admin.products.index', compact('products'));
-    }
+  }
 
     /**
      * Show the form for creating a new resource.
@@ -45,6 +45,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+      $request->validate([
+        'name'=>'required|max:225',
+        'price'=>'required|numeric',
+        'description'=>'required'
+      ]);
       // upload images
       $file = $request->file('image_url');
       $ext = $file->getClientOriginalExtension();
@@ -102,7 +107,7 @@ class ProductController extends Controller
     {
       $prod_update = $request->validate([
         'name' => 'required|max:255',
-        'price' => 'required',
+        'price' => 'required|numeric',
         'description' => 'required'
       ]);
 

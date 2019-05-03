@@ -29,5 +29,47 @@
           </div>
         </div>
       </div>
+
+      <div class="row justify-content-center">
+        <div class="col">
+          <table id="cart" class="table table-hover table-condensed">
+            <thead>
+              <tr>
+                <th style="width:50%">Product</th>
+                <th style="width:10">Price</th>
+                <th style="width:8">Quantity</th>
+                <th style="width:22" class="text-center">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($order->orderItems as $orderItem)
+                <tr>
+                  <td data-th="Product">
+                    <div class="row">
+                      <div class="col-sm-3 hidden-xs">
+                        <img src="{{ url('/image_files/'.$orderItem->image_url) }}" width="100" height="100" class="img-responsive">
+                      </div>
+                      <div class="col-md-9">
+                        <a href="{{ route('products.show', ['id' => $orderItem->product->id]) }}">
+                          <h4 class="nomargin">{{ $orderItem->product->name }}</h4>
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                  <td data-th="Price">
+                    {{ $orderItem->price }}
+                  </td>
+                    {{ $orderItem->quantity }}
+                    <td data-th="Quantity">
+                  </td>
+                  <td data-th="Subtotal" class="text-center">
+                    {{ $orderItem->price = $orderItem->quantity }}
+                  </td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   @endsection

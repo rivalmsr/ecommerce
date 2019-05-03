@@ -6,7 +6,7 @@
             <div class="row mt-4">
               @endif
 
-              <div class="col">
+              <div class="col-md-3">
                 <div class="card">
                   @if(!empty($product))
                   <img src="{{ url('/image_files/'.$product->image_url) }}" class="card-img-top" alt="" >

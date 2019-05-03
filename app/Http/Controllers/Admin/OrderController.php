@@ -21,7 +21,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-
+      $orders = Order::where('user_id', '=', Auth::user()->id)->get();
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -57,8 +58,16 @@ class OrderController extends Controller
       $cart = session()->get('cart');
       $total_price = 0;
       foreach ($cart as $id => $product) {
-        $total_price += $product['price'] = $product['quantity'];
+        $total_price += $product['price'] * $product['quantity'];
       }
+
+      $order = new Order();
+      $order->user_id = Auth::user()->id;
+      $order->status = 'PENDING';
+      $order->shipping_address = $request->post('shipping_address');
+      $order->zip_code = $request->post('zip_code');
+      $order->total_price = $total_price;
+      $order->save();
 
       // Save order item
       foreach ($cart as $id => $product) {
@@ -73,7 +82,7 @@ class OrderController extends Controller
       // Remove chart Session
       session()->forget('cart');
 
-      return redirect('admin/orders/'.$order->id->with('success', 'Order berhasil di simpan'));
+      return redirect('admin/orders/'.$order->id)->with('success', 'Order berhasil di simpan');
     }
 
     /**
@@ -84,7 +93,12 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+      $order  = Order::find($id);
+      if ($order) {
+          return view('admin.orders.show', compact('order'));
+      }else {
+          return redirect()->route('admin.orders.index')->with('errors', 'Order tidak ditemukan ');
+      }
     }
 
     /**
@@ -111,8 +125,8 @@ class OrderController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
      *
+     * Remove the specified resource from storage.
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

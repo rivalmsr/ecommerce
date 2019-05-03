@@ -12,6 +12,8 @@
 
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
+    <script src="<?php echo e(asset('js/bootstrap.bundle.min.js')); ?>" defer></script>
+    <script src="<?php echo e(asset('js/bootstrap.min.js')); ?>" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,6 +21,9 @@
 
     <!-- Styles -->
     <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/bootstrap-grid.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/bootstrap-reboot.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/bootstrap.min.css')); ?>" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -41,21 +46,19 @@
                             Product</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="<?php echo e(route('admin.products.index')); ?>">List</a>
+                                <a class="dropdown-item" href="<?php echo e(route('products.index')); ?>">Products</a>
                                 <a class="dropdown-item" href="<?php echo e(route('admin.products.create')); ?>">Tambah</a>
                                 <!-- <a class="dropdown-item" href="<?php echo e(route('image.index')); ?>">Gambar</a> -->
                             </div>
                         </li>
-                        <?php
-                        var_dump(session('cart'));
-                        die();
-                         ?>
+                        
                         <!-- Carts Nav -->
                         <li class="nav-item">
                           <a href="<?php echo e(route('carts.index')); ?>" class="btn btn-primary btn-block">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>Cart
                             <span class="badge badge-pill badge-danger">
                               <?php if(session('cart')): ?>
-                                <?php echo e(count(Session::All())); ?>
+                                <?php echo e(count(session('cart'))); ?>
 
                               <?php else: ?>
                                 0

@@ -2,14 +2,6 @@
   @section('content')
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-12">
-          <div class="alert alert-info alert-dimissible fade show" role="alert">
-            Username <strong>{{ Auth::user()->name }}</strong> are logged in!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        </div>
 
         <div class="col-md-12">
           <div class="card">
@@ -84,3 +76,4 @@
       </div>
     </div>
   @endsection
+  

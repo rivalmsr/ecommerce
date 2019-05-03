@@ -11,6 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" defer></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +20,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-grid.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap-reboot.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -39,21 +44,19 @@
                             Product</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('admin.products.index') }}">List</a>
+                                <a class="dropdown-item" href="{{ route('products.index') }}">Products</a>
                                 <a class="dropdown-item" href="{{ route('admin.products.create') }}">Tambah</a>
                                 <!-- <a class="dropdown-item" href="{{ route('image.index') }}">Gambar</a> -->
                             </div>
                         </li>
-                        <?php
-                        var_dump(session('cart'));
-                        die();
-                         ?>
+                        
                         <!-- Carts Nav -->
                         <li class="nav-item">
                           <a href="{{ route('carts.index') }}" class="btn btn-primary btn-block">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>Cart
                             <span class="badge badge-pill badge-danger">
                               @if(session('cart'))
-                                {{ count(Session::All()) }}
+                                {{ count(session('cart')) }}
                               @else
                                 0
                               @endif

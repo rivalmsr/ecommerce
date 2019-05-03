@@ -33,7 +33,7 @@
             </td>
             <td data-th="Price">{{ $product['price'] }}</td>
             <td data-th="Quantity">
-              <input type="number" value="{{ $product['quantity'] }}" class="form-control Quantity">
+              <input type="number" value="{{ $product['quantity'] }}" class="form-control quantity">
             </td>
             <td dat-th="Subtotal" class="text-center">${{ $product['price'] * $product['quantity'] }}</td>
             <td class="actions" data-th="">
@@ -51,7 +51,7 @@
           <tr>
             <td>
               <a href="{{ route('carts.index') }}" class="btn btn-warning"> <i class="fa fa-angle-left"></i> Lanjutan  Belanja </a>
-              <a href="#" class="btn btn-primary"> <i class="fa fa-angle-left"> Lanjut ke Pembayaran </i></a>
+              <a href="{{ route('admin.orders.create') }}" class="btn btn-primary"> <i class="fa fa-angle-left"> Lanjut ke Pembayaran </i></a>
             </td>
           </tr>
         </tfoot>
@@ -64,7 +64,7 @@
       $(document).ready(function(){
 
         // function update carts
-        $('.update-cart').click(function(e){
+        $(".update-cart").click(function(e){
           e.preventDefault();
           console.log('update');
           var ele = $(this);
@@ -84,10 +84,11 @@
           e.preventDefault();
           console.log('delete');
           var ele = $(this);
+
           if(confirm("Are you sure")){
             $.ajax({
               url: "{{ route('carts.remove') }}",
-              method: "DELETE",
+              method: "delete",
               data: {_token: '{{ csrf_token() }}', id: ele.attr("data-id")},
               success: function(response){
                 window.location.reload();

@@ -16,11 +16,10 @@
 
             <div class="form-group">
               <label>Harga</label>
-              <input type="number" name="price" class="form-control" placeholder="Harga Produk" required>
+              <input type="text" name="price" class="form-control" placeholder="Harga Produk" required>
             </div>
 
             <div class="form-group">
-              <label>Gambar</label>
               <input type="file" name="image_url" class="form-control">
             </div>
 
