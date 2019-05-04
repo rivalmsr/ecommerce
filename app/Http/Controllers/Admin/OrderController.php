@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Auth;
 
 class OrderController extends Controller
 {
-
     public function __construct(){
       $this->middleware('auth');
     }

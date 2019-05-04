@@ -23,6 +23,13 @@
     <link href="{{ asset('css/bootstrap-grid.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-reboot.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <style>
+    .checked {
+      color: orange;
+      }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -39,7 +46,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                       @if (Auth::check())
-                         <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Product</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -49,7 +56,7 @@
                                 <!-- <a class="dropdown-item" href="{{ route('image.index') }}">Gambar</a> -->
                             </div>
                         </li>
-                        
+
                         <!-- Carts Nav -->
                         <li class="nav-item">
                           <a href="{{ route('carts.index') }}" class="btn btn-primary btn-block">
@@ -62,6 +69,14 @@
                               @endif
                             </span>
                           </a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Order</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('admin.orders.index') }}">List Order</a>
+                            </div>
                         </li>
                         @endif
                     </ul>

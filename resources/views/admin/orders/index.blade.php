@@ -32,7 +32,7 @@
                       <a href="{{ route('admin.orders.show', ['id'=>$order['id']]) }}"></a>
                     </td>
                   </tr>
-                @endfoeach
+                @endforeach
               </tbody>
             </table>
           </div>

@@ -35,7 +35,7 @@
             <td data-th="Quantity">
               <input type="number" value="{{ $product['quantity'] }}" class="form-control quantity">
             </td>
-            <td dat-th="Subtotal" class="text-center">${{ $product['price'] * $product['quantity'] }}</td>
+            <td data-th="Subtotal" class="text-center">${{ $product['price'] * $product['quantity'] }}</td>
             <td class="actions" data-th="">
               <button class="btn btn-info btn-sm update-cart" data-id="{{$id}}">Update</button>
               <button class="btn btn-danger btn-sm mt-2 remove-from-cart" data-id="{{$id}}">Remove</button>

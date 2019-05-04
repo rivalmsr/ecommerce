@@ -20,4 +20,17 @@ class Product extends Model
                     ->where('products.user_id','=', Auth::user()->id)
                     ->get();
   }
+
+  public function user()
+  {
+    return $this->belongsTo('App\Models\ProductReview');
+  }
+
+  public function getProductReview($id){
+    return $productReviews = DB::table('products')
+                            ->join('product_reviews','product_reviews.product_id', '=', 'products.id')
+                            ->select('products.*','product_reviews.*')
+                            ->where('products.id', '=', $id)
+                            ->get();
+  }
 }

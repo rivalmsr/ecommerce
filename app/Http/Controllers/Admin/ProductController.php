@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductsReview;
 use Image;
 use App\User;
 use Auth;
@@ -126,4 +127,5 @@ class ProductController extends Controller
       $product = Product::where('id', $id)->delete();
       return redirect()->route('admin.products.index');
     }
+
 }

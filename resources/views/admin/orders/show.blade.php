@@ -5,26 +5,26 @@
         <div class="col">
           <div class="row">
             <div class="col">
-              <h2>
+              <h3>
                 <span class="badge badge-primary" >Alamat Pengiriman</span>
-               </h2>
+              </h3>
                <p>{{$order->shipping_address}}</p>
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <h2>
+              <h3>
                 <span class="badge badge-primary">Kode Pos</span>
-              </h2>
+              </h3>
               <p>{{$order->zip_code}}</p>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <h2>
+            <h3>
               <span class="badge badge-primary">Harga Total</span>
-            </h2>
+            </h3>
             <p>{{$order->total_price}}</p>
           </div>
         </div>
@@ -47,7 +47,8 @@
                   <td data-th="Product">
                     <div class="row">
                       <div class="col-sm-3 hidden-xs">
-                        <img src="{{ url('/image_files/'.$orderItem->image_url) }}" width="100" height="100" class="img-responsive">
+                        <a href="{{ route('products.image', ['imageName'=> $orderItem->product->image_url]) }}" hidden></a>
+                        <img src="{{ url('/image_files/'.$orderItem->product->image_url) }}" width="100" height="100" class="img-responsive">
                       </div>
                       <div class="col-md-9">
                         <a href="{{ route('products.show', ['id' => $orderItem->product->id]) }}">
@@ -59,11 +60,11 @@
                   <td data-th="Price">
                     {{ $orderItem->price }}
                   </td>
+                  <td data-th="Quantity">
                     {{ $orderItem->quantity }}
-                    <td data-th="Quantity">
                   </td>
                   <td data-th="Subtotal" class="text-center">
-                    {{ $orderItem->price = $orderItem->quantity }}
+                    {{ $orderItem->price * $orderItem->quantity }}
                   </td>
                 </tr>
               @endforeach
