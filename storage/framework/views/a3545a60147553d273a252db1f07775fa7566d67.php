@@ -29,13 +29,15 @@
                       <td><?php echo e($no++); ?></td>
                       <td><?php echo e($product->name); ?></td>
                       <td><?php echo e($product->price); ?></td>
-                      <td><?php echo e(strip_tags($product->description)); ?></td>
+                      <td>
+                        <span class="d-inline-block text-truncate" style="max-width:300px;">
+                          <?php echo e(strip_tags($product->description)); ?>
+
+                        </span>
+                      </td>
+
                       <td class="text-center" >
-
-                        <a href="<?php echo e(route('public.products.show', $product->id)); ?>">
-                            <img src="<?php echo e(asset('icons/svg/si-glyph-view.svg')); ?>" width="25px" height="20px"/>
-                        </a>
-
+                        <a href="<?php echo e(route('public.products.show', $product->id)); ?>" class="btn btn-info btn-sm">Show</a>
                       </td>
 
                     </tr>

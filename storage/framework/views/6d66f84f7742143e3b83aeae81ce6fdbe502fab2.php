@@ -1,5 +1,10 @@
 <?php /* /home/rivalmsr/Documents/rdeveloper/laravel/ecommerce/resources/views/products/show.blade.php */ ?>
+  
   <?php $__env->startSection('content'); ?>
+  <?php
+    var_dump($products);
+    die();
+  ?>
     <div class="container">
       <div class="row">
       <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

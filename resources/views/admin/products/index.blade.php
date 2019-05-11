@@ -1,78 +1,109 @@
-@extends('layouts.app')
+@extends('layouts.core')
   @section('content')
     <div class="container">
-      <div class="row justify-content-center">
-
+      <div class="row">
         <div class="col-md-12">
-          <div class="card">
+          <div class="card card-info collapsed-card card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Tambah Produk</h3>
 
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+              </div>
+            </div>
+            <!-- /.card-header -->
             <div class="card-body">
-              <h2>Produk</h2>
-              <div class="">
-                <a href="{{ route('admin.products.create') }}" class="btn btn-primary" > <strong>+</strong>Tambah Produk</a>
-              </div>
 
-              <div class="table-responsive">
-                <table class="table table-striped table-md">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th>No</th>
-                      <th>Nama</th>
-                      <th>Harga</th>
-                      <th>Deskripsi</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php $no = 1 ?>
-                    @foreach($products as $product)
-                    <tr>
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $product->name }}</td>
-                      <td>{{ $product->price }}</td>
-                      <td>{{ strip_tags($product->description) }}</td>
-                      <td class="text-center" >
-
-                        <a href="{{ route('admin.products.edit', $product->id) }}">
-                          <button type="button" class="">
-                            <img src="{{ asset('icons/svg/si-glyph-edit.svg') }}" width="14px" height="14px"/>
-                          </button>
-                        </a>
-
-                        <a href="{{ route('admin.products.show', $product->id) }}">
-                          <button type="button" class="">
-                            <img src="{{ asset('icons/svg/si-glyph-view.svg') }}" width="14px" height="14px"/>
-                          </button>
-                        </a>
-
-                        <a href="{{ route('admin.products.show', $product->id) }}">
-                          <button type="button" class="">
-                            <img src="{{ asset('icons/svg/si-glyph-image.svg') }}" width="14px" height="14px"/>
-                          </button>
-                        </a>
-
-                        <form class="" action="{{ route('admin.products.destroy', $product->id) }}" method="post">
-                          {{ csrf_field() }}
-                          @method('DELETE')
-
-                          <button type="submit" name="button">
-                            <img src="{{ asset('icons/svg/si-glyph-trash.svg') }}" width="14px" height="14px"/>
-                          </button>
-                        </form>
-
-                      </td>
-
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
-              </div>
+              <form role="form" action="{{ route('admin.products.store') }}" method="post" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                  <div class="form-group">
+                    <label >Nama</label>
+                    <input type="text" class="form-control" placeholder="Nama" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label >Harga</label>
+                    <input type="text" class="form-control" placeholder="Harga" name="price">
+                  </div>
+                  <div class="form-group">
+                    <label >Upload Foto</label>
+                    <input type="file" class="form-control" name="image_url">
+                  </div>
+                  <label>Deskripsi</label>
+                    <textarea id="editor1" name="description" style="width: 100%"></textarea>
+                    <div class="form-group">
+                  </div>
+                <div class="form-group text-right">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
 
             </div>
-
+            <!-- /.card-body -->
           </div>
+          <!-- /.card -->
         </div>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">List Produk</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama</th>
+                  <th>Harga</th>
+                  <th>Deskripsi</th>
+                  <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                  @php
+                    $no = 1;
 
+                    function rupiah($angka){
+                      $hasil_rupiah = "Rp ".number_format($angka,2,',','.');
+                      return $hasil_rupiah;
+                    }
+                  @endphp
+                  @foreach($products as $product)
+                  <tr>
+                    <td>{{ $no++ }}</td>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ rupiah($product->price) }}</td>
+                    <td>
+                      <span class="d-inline-block text-truncate" style="max-width: 400px;">
+                      {{ strip_tags($product->description) }}
+                    </span>
+                    </td>
+                    <td class="text-center" >
+                      <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                      <a href="{{ route('admin.products.show', $product->id) }}" class="btn btn-info btn-sm">Show</a>
+                      <a href="{{ route('admin.products.destroy', $product->id) }}" class="btn btn-danger btn-sm" method="delete">Delete</a>
+                    </td>
+                  </tr>
+                  @endforeach
+
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>No</th>
+                  <th>Nama</th>
+                  <th>Harga</th>
+                  <th>Deskripsi</th>
+                  <th>Aksi</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
       </div>
+      <!-- /.row -->
+
     </div>
   @endsection

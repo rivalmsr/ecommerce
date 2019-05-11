@@ -15,7 +15,7 @@ class ProductController extends Controller
 
     public function __construct(){
       $this->middleware('auth');
-      $this->model = new Product;
+      $this->product = new Product;
     }
     /**
      * Display a listing of the resource.
@@ -24,7 +24,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-      $products = $this->model->getUserId();
+      $products = $this->product->getUserId();
       return view('admin.products.index', compact('products'));
   }
 
@@ -81,8 +81,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-      $product = Product::where('id', $id)->get();
-      return view('admin.products.show', ['products'=>$product]);
+      $products = Product::where('id', $id)->get();
+      return view('admin.products.show', ['products'=>$products]);
+
     }
 
     /**

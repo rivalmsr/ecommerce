@@ -1,15 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.core')
   @section('content')
-    <div class="container">
+    <div class="container-fluid">
         @foreach($products as $idx => $product)
             @if($idx == 0 | $idx % 4 == 0)
-            <div class="row mt-4">
+            <div class="row mt-2">
               @endif
-
               <div class="col-md-3">
                 <div class="card">
                   @if(!empty($product))
-                  <img src="{{ url('/image_files/'.$product->image_url) }}" class="card-img-top" alt="" >
+                  <img src="{{ url('/image_files/'.$product->image_url) }}" class="card-img-top rounded" alt="" >
                   @endif
                   <div class="card-body">
                     <h5 class="card-title">
@@ -20,7 +19,7 @@
                     <p class="card-text">
                       {{ $product->price }}
                     </p>
-                    <a href="{{ route('carts.add',['id' => $product['id']]) }}" class="btn btn-primary">Beli</a>
+                    <a href="{{ route('carts.add',['id' => $product['id']]) }}" class="btn btn-block btn-primary">Beli</a>
                   </div>
                 </div>
 

@@ -30,36 +30,33 @@
                       <td><?php echo e($no++); ?></td>
                       <td><?php echo e($product->name); ?></td>
                       <td><?php echo e($product->price); ?></td>
-                      <td><?php echo e(strip_tags($product->description)); ?></td>
+                      <td>
+                        <span class="d-inline-block text-truncate" style="max-width: 300px;">
+                        <?php echo e(strip_tags($product->description)); ?>
+
+                      </span>
+                      </td>
                       <td class="text-center" >
+                        <dd>
+                          <a href="<?php echo e(route('admin.products.edit', $product->id)); ?>" class="btn btn-warning btn-sm">Edit</a>
 
-                        <a href="<?php echo e(route('admin.products.edit', $product->id)); ?>">
-                          <button type="button" class="">
-                            <img src="<?php echo e(asset('icons/svg/si-glyph-edit.svg')); ?>" width="14px" height="14px"/>
-                          </button>
-                        </a>
+                        </dd>
+                        <dd>
+                          <a href="<?php echo e(route('admin.products.show', $product->id)); ?>" class="btn btn-info btn-sm">Show</a>
 
-                        <a href="<?php echo e(route('admin.products.show', $product->id)); ?>">
-                          <button type="button" class="">
-                            <img src="<?php echo e(asset('icons/svg/si-glyph-view.svg')); ?>" width="14px" height="14px"/>
-                          </button>
-                        </a>
+                        </dd>
+                        <dd>
+                          <form class="" action="<?php echo e(route('admin.products.destroy', $product->id)); ?>" method="post">
+                            <?php echo e(csrf_field()); ?>
 
-                        <a href="<?php echo e(route('admin.products.show', $product->id)); ?>">
-                          <button type="button" class="">
-                            <img src="<?php echo e(asset('icons/svg/si-glyph-image.svg')); ?>" width="14px" height="14px"/>
-                          </button>
-                        </a>
+                            <?php echo method_field('DELETE'); ?>
 
-                        <form class="" action="<?php echo e(route('admin.products.destroy', $product->id)); ?>" method="post">
-                          <?php echo e(csrf_field()); ?>
+                            <button type="submit" name="button" class="btn btn-danger btn-sm">Delete</button>
+                          </form>
+                          
+                        </dd>
 
-                          <?php echo method_field('DELETE'); ?>
 
-                          <button type="submit" name="button">
-                            <img src="<?php echo e(asset('icons/svg/si-glyph-trash.svg')); ?>" width="14px" height="14px"/>
-                          </button>
-                        </form>
 
                       </td>
 

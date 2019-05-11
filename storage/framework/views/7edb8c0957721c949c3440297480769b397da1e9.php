@@ -2,8 +2,9 @@
   <?php $__env->startSection('content'); ?>
     <div class="container">
       <div class="row">
+        <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="col-md-3">
-          <img src="<?php echo e(route('admin.products.image', ['imageName'=>$product['image_url']])); ?>" class="card-img-top" alt="">
+          <img src="<?php echo e(url('/image_files/'.$product->image_url)); ?>" class="card-img-top" alt="">
         </div>
 
         <div class="col-md-9">
@@ -30,16 +31,20 @@
 
             <!-- Tab panes -->
             <div class="tab-content mt-2">
+
               <div role="tabpanel" class="tab-pane fade in active show" id="description">
                 <?php echo $product->description; ?>
 
               </div>
-              <div class="tabpanel" class="tab-pane fade" id="review">
+
+              <div role="tabpanel" class="tab-pane fade" id="review">
                 Content untuk review disini
               </div>
+
             </div>
           </div>
         </div>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
       </div>
     </div>

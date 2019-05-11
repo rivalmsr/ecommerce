@@ -13,19 +13,19 @@ class ProductController extends Controller
 {
   public function __construct(){
     $this->product = new Product();
+    $this->productReview = new ProductReview();
   }
 
   public function index(){
     $products = Product::all();
-    // var_dump($products);
-    // die();
       return view('products.index', compact('products'));
   }
 
   public function show($id){
-    $products = $this->product->getProductReview($id);
-    if($products){
-      return view('products.show', compact('products'));
+    $data['products'] = $this->product::where('id',$id)->get();
+    $data['productReviews'] = $this->productReview->getProductReview($id);
+    if($data){
+      return view('products.show', $data);
     }else{
       return redirect('/products')->with('erros','Produk tidak ditemukan !');
     }
@@ -42,7 +42,7 @@ class ProductController extends Controller
     $rating->user_id = Auth::user()->id;
     $rating->product_id = $id;
     $rating->rating = $request->post('rating');
-    $rating->description = $request->post('description');
+    $rating->comment = $request->post('comment');
     $rating->save();
     return redirect()->route('products.show', ['id' => $id])->with('success', 'Produk berhasil disimpan !');
   }
