@@ -22,10 +22,12 @@ class ProductController extends Controller
   }
 
   public function show($id){
-    $data['products'] = $this->product::where('id',$id)->get();
+    $data['product'] = $this->product::find($id);
     $data['productReviews'] = $this->productReview->getProductReview($id);
+    $data['avgRating'] = $this->productReview->getProductRating();
+
     if($data){
-      return view('products.show', $data);
+      return view('products.show', $data, compact('product'));
     }else{
       return redirect('/products')->with('erros','Produk tidak ditemukan !');
     }

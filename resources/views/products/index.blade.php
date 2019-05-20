@@ -1,12 +1,12 @@
-@extends('layouts.core')
+@extends('layouts.home')
   @section('content')
-    <div class="container-fluid">
+    <div>
         @foreach($products as $idx => $product)
             @if($idx == 0 | $idx % 4 == 0)
             <div class="row mt-2">
               @endif
               <div class="col-md-3">
-                <div class="card">
+                <div class="card shadow">
                   @if(!empty($product))
                   <img src="{{ url('/image_files/'.$product->image_url) }}" class="card-img-top rounded" alt="" >
                   @endif

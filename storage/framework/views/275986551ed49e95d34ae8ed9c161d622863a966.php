@@ -1,5 +1,5 @@
-@extends('layouts.app')
-  @section('content')
+<?php /* /home/rivalmsr/Documents/rdeveloper/laravel/ecommerce-adminLTE/resources/views/admin/products/show.blade.php */ ?>
+  <?php $__env->startSection('content'); ?>
     <div class="container">
       <div class="row">
         <div class="card">
@@ -11,15 +11,17 @@
           <div class="card-body">
 
             <div class="col-md-3">
-              <img src="{{ url('/image_files/'.$products['image_url']) }}" class="card-img-top" alt="">
+              <img src="<?php echo e(url('/image_files/'.$products['image_url'])); ?>" class="card-img-top" alt="">
             </div>
 
             <div class="col-md-9">
               <h3>
-                {{ $products['name'] }}
+                <?php echo e($products['name']); ?>
+
               </h3>
               <h4>
-                {{ $products['price']}}
+                <?php echo e($products['price']); ?>
+
               </h4>
               <div class="mt-4">
                 <a href="#" class="btn btn-primary">Beli</a>
@@ -38,7 +40,8 @@
                 <div class="tab-content mt-2">
 
                   <div role="tabpanel" class="tab-pane fade in active show" id="description">
-                    {!! $products['description'] !!}
+                    <?php echo $products['description']; ?>
+
                   </div>
 
                   <div role="tabpanel" class="tab-pane fade" id="review">
@@ -56,4 +59,6 @@
 
       </div>
     </div>
-  @endsection
+  <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

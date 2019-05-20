@@ -13,6 +13,7 @@ class OrderController extends Controller
 {
     public function __construct(){
       $this->middleware('auth');
+      $this->order = new Product();
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +22,10 @@ class OrderController extends Controller
      */
     public function index()
     {
+      var_dump($this->order->get());
+      die();
       $orders = Order::where('user_id', '=', Auth::user()->id)->get();
+
         return view('admin.orders.index', compact('orders'));
     }
 

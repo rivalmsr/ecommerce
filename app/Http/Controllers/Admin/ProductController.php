@@ -81,8 +81,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-      $products = Product::where('id', $id)->get();
-      return view('admin.products.show', ['products'=>$products]);
+      $products = $this->product::find($id);
+      return view('admin.products.show', compact('products'));
 
     }
 

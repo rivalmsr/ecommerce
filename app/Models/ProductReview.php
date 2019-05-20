@@ -21,7 +21,11 @@ class ProductReview extends Model
                             ->join('products', 'product_reviews.product_id','=','products.id' )
                             ->select('products.id','product_reviews.*')
                             ->where('products.id', '=', $id)
-                            ->orderBy('product_reviews.created_at', 'desc')
                             ->get();
+  }
+
+  public function getProductRating(){
+    return $rating = DB::table('product_reviews')
+                    ->avg('product_reviews.id');
   }
 }

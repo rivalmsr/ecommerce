@@ -1,5 +1,6 @@
-  @extends('layouts.homeAdmin')
-  @section('content')
+<?php /* /home/rivalmsr/Documents/rdeveloper/laravel/ecommerce-adminLTE/resources/views/products/show.blade.php */ ?>
+  
+  <?php $__env->startSection('content'); ?>
     <div class="bg-white shadow-sm rounded">
       <div class="row">
         <div class="col-md-12">
@@ -12,60 +13,62 @@
               <div class="row">
 
                 <div class="col-md-3">
-                  <img src="{{ url('/image_files/'.$product->image_url) }}" class="card-img-top" alt="">
+                  <img src="<?php echo e(url('/image_files/'.$product->image_url)); ?>" class="card-img-top" alt="">
                 </div>
 
                 <div class="col-md-9">
                   <div class="">
                     <h3>
-                      {{ $product->name }}
+                      <?php echo e($product->name); ?>
+
                     </h3>
 
                     <p>
-                      @php $rating = $avgRating ; @endphp
+                      <?php $rating = $avgRating ; ?>
                       <div class="placeholder" style="color:gray;">
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
-                        <span class="small">{{ $rating }}</span>
+                        <span class="small"><?php echo e($rating); ?></span>
                       </div>
 
                       <div class="overlay" style="position: relative; top: -22px; color: yellow;">
-                        @while($rating>0)
-                        @if($rating > 0.5)
+                        <?php while($rating>0): ?>
+                        <?php if($rating > 0.5): ?>
                         <i class="fas fa-star"></i>
-                        @else
+                        <?php else: ?>
                         <i class="fas fa-star-half"></i>
-                        @endif
-                        @php $rating--; @endphp
-                        @endwhile
+                        <?php endif; ?>
+                        <?php $rating--; ?>
+                        <?php endwhile; ?>
                       </div>
                     </p>
 
                   </div>
                   <h4>
-                    {{ $product->price }}
+                    <?php echo e($product->price); ?>
+
                   </h4>
                   <div class="mt-4">
-                    <a href="{{ route('carts.add', ['id'=> $product->id]) }}" class="btn btn-primary">Beli</a>
+                    <a href="<?php echo e(route('carts.add', ['id'=> $product->id])); ?>" class="btn btn-primary">Beli</a>
                   </div>
 
                   <div class="mt-2">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('products.show', ['id'=> $product->id]) }}" class="social-button" target="_blank">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo e(route('products.show', ['id'=> $product->id])); ?>" class="social-button" target="_blank">
                       Share Facebook
                     </a>
                     |
-                    <a href="https://twitter.com/intent/tweet?text=my share text&amp;url={{ route('products.show', ['id' => $product->id]) }}" class="social-button" target="_blank">
+                    <a href="https://twitter.com/intent/tweet?text=my share text&amp;url=<?php echo e(route('products.show', ['id' => $product->id])); ?>" class="social-button" target="_blank">
                       Share Twitter
                     </a>
                     |
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url={{ route('products.show', ['id' => $product->id]) }}&amp;title=my share text&amp;summary=dit is de linkedin summary" class="social-button" target="_blank">
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo e(route('products.show', ['id' => $product->id])); ?>&amp;title=my share text&amp;summary=dit is de linkedin summary" class="social-button" target="_blank">
                       Share Linkedin
                     </a>
                     |
-                    <a href="https://wa.me/?text={{ route('products.show', ['id' => $product->id]) }}" class="social-button" target="_blank">
+                    <a href="https://wa.me/?text=<?php echo e(route('products.show', ['id' => $product->id])); ?>" class="social-button" target="_blank">
                       Share WhatsApp
                     </a>
                   </div>
@@ -83,14 +86,15 @@
                     <!-- Tab panes -->
                     <div class="tab-content mt-2">
                       <div role="tabpanel" class="tab-pane fade in active show" id="description">
-                        {!! $product->description !!}
+                        <?php echo $product->description; ?>
+
                       </div>
 
-                      @foreach($productReviews as $value )
+                      <?php $__currentLoopData = $productReviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <div role="tabpanel" class="tab-pane fade" id="review">
 
-                        <form class="" action="{{ route('products.rating', ['id' => $product->id]) }}" method="POST">
-                          @csrf
+                        <form class="" action="<?php echo e(route('products.rating', ['id' => $product->id])); ?>" method="POST">
+                          <?php echo csrf_field(); ?>
 
                           <h5>Rating</h5>
                           <div class="form-check form-check-inline">
@@ -127,28 +131,30 @@
 
 
                         <!-- comments -->
-                        @if(!empty($value->comment))
+                        <?php if(!empty($value->comment)): ?>
 
                           <div class="card-footer card-comments rounded">
                             <div class="card-comment">
                               <!-- User image -->
-                              <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle img-sm" alt="User Image">
+                              <img src="<?php echo e(asset('img/user2-160x160.jpg')); ?>" class="img-circle img-sm" alt="User Image">
                               <div class="comment-text">
                                 <span class="username">
-                                  {{ Auth::user()->name }}
-                                  <span class="text-muted float-right">{{ $value->created_at }}</span>
+                                  <?php echo e(Auth::user()->name); ?>
+
+                                  <span class="text-muted float-right"><?php echo e($value->created_at); ?></span>
                                 </span><!-- /.username -->
-                                {{ $value->comment }}
+                                <?php echo e($value->comment); ?>
+
                               </div>
                               <!-- /.comment-text -->
                             </div>
                           </div><br>
 
-                        @else
+                        <?php else: ?>
 
-                        @endif
+                        <?php endif; ?>
 
-                      @endforeach
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                   </div>
 
@@ -165,4 +171,6 @@
       </div>
     </div>
 
-  @endsection
+  <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.homeAdmin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

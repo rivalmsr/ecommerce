@@ -1,5 +1,5 @@
-@extends('layouts.homeAdmin')
-  @section('content')
+<?php /* /home/rivalmsr/Documents/rdeveloper/laravel/ecommerce-adminLTE/resources/views/carts/index.blade.php */ ?>
+  <?php $__env->startSection('content'); ?>
     <div>
       <div class="row justify-content-center">
         <div class="col-md-12">
@@ -21,36 +21,36 @@
                 </thead>
                 <tbody>
                   <?php $total= 0 ?>
-                  @if(session('cart'))
-                  @foreach(session('cart') as $id =>$product)
+                  <?php if(session('cart')): ?>
+                  <?php $__currentLoopData = session('cart'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $id =>$product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php $total += $product['price'] * $product['quantity']?>
 
                   <tr>
                     <td data-th="Product">
                       <div class="row">
                         <div class="col-sm-3 hidden-xs">
-                          @if(!empty($product))
-                          <img src="{{url('/image_files/'.$product['image_url'])}}" width="100"
+                          <?php if(!empty($product)): ?>
+                          <img src="<?php echo e(url('/image_files/'.$product['image_url'])); ?>" width="100"
                           height="100" class="imge-responsive">
-                          @endif
+                          <?php endif; ?>
                         </div>
                           <div class="col-sm-9">
-                            <h4 class="nomargin">{{ $product['name'] }}</h4>
+                            <h4 class="nomargin"><?php echo e($product['name']); ?></h4>
                           </div>
                       </div>
                     </td>
-                    <td data-th="Price">{{ $product['price'] }}</td>
+                    <td data-th="Price"><?php echo e($product['price']); ?></td>
                     <td data-th="Quantity">
-                      <input type="number" value="{{ $product['quantity'] }}" class="form-control quantity">
+                      <input type="number" value="<?php echo e($product['quantity']); ?>" class="form-control quantity">
                     </td>
-                    <td data-th="Subtotal" class="text-center">${{ $product['price'] * $product['quantity'] }}</td>
+                    <td data-th="Subtotal" class="text-center">$<?php echo e($product['price'] * $product['quantity']); ?></td>
                     <td class="actions" data-th="">
-                      <button class="btn btn-info btn-sm update-cart" data-id="{{$id}}">Update</button>
-                      <button class="btn btn-danger btn-sm mt-2 remove-from-cart" data-id="{{$id}}">Remove</button>
+                      <button class="btn btn-info btn-sm update-cart" data-id="<?php echo e($id); ?>">Update</button>
+                      <button class="btn btn-danger btn-sm mt-2 remove-from-cart" data-id="<?php echo e($id); ?>">Remove</button>
                     </td>
                   </tr>
-                  @endforeach
-                  @endif
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                  <?php endif; ?>
                 </tbody>
                 <tfoot>
                   <tr>
@@ -61,13 +61,13 @@
                     <th style="width:10%">Aksi</th>
                   </tr>
                   <tr class="visible-xs">
-                    <td class="text-center" colspan="5"> <strong>Total {{$total}}</strong> </td>
+                    <td class="text-center" colspan="5"> <strong>Total <?php echo e($total); ?></strong> </td>
                   </tr>
                   <tr>
                     <td colspan="5">
                       <div class="text-right">
-                        <a href="{{ route('carts.index') }}" class="btn btn-warning"> <i class="fa fa-angle-left"></i> Lanjutan  Belanja </a>
-                        <a href="{{ route('admin.orders.create') }}" class="btn btn-primary"> <i class="fa fa-angle-left"> Lanjut ke Pembayaran </i></a>
+                        <a href="<?php echo e(route('carts.index')); ?>" class="btn btn-warning"> <i class="fa fa-angle-left"></i> Lanjutan  Belanja </a>
+                        <a href="<?php echo e(route('admin.orders.create')); ?>" class="btn btn-primary"> <i class="fa fa-angle-left"> Lanjut ke Pembayaran </i></a>
                       </div>
                     </td>
                   </tr>
@@ -95,9 +95,9 @@
           var ele = $(this);
 
           $.ajax({
-            url: "{{ route('carts.update') }}",
+            url: "<?php echo e(route('carts.update')); ?>",
             method: "patch",
-            data: {_token: '{{ csrf_token() }}', id: ele.attr("data-id"), quantity: ele.parents("tr").find(".quantity").val()},
+            data: {_token: '<?php echo e(csrf_token()); ?>', id: ele.attr("data-id"), quantity: ele.parents("tr").find(".quantity").val()},
             success: function(response){
               window.location.reload();
             }
@@ -112,9 +112,9 @@
 
           if(confirm("Are you sure")){
             $.ajax({
-              url: "{{ route('carts.remove') }}",
+              url: "<?php echo e(route('carts.remove')); ?>",
               method: "delete",
-              data: {_token: '{{ csrf_token() }}', id: ele.attr("data-id")},
+              data: {_token: '<?php echo e(csrf_token()); ?>', id: ele.attr("data-id")},
               success: function(response){
                 window.location.reload();
               }
@@ -124,4 +124,6 @@
 
       });
     </script>
-  @endsection
+  <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.homeAdmin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

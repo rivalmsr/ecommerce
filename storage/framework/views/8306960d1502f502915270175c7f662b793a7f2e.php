@@ -1,5 +1,5 @@
-@extends('layouts.core')
-  @section('content')
+<?php /* /home/rivalmsr/Documents/rdeveloper/laravel/ecommerce-adminLTE/resources/views/admin/products/index.blade.php */ ?>
+  <?php $__env->startSection('content'); ?>
     <div class="container">
 
       <div class="row">
@@ -15,8 +15,9 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-              <form role="form" action="{{ route('admin.products.store') }}" method="post" enctype="multipart/form-data">
-                {{ csrf_field() }}
+              <form role="form" action="<?php echo e(route('admin.products.store')); ?>" method="post" enctype="multipart/form-data">
+                <?php echo e(csrf_field()); ?>
+
                   <div class="form-group">
                     <label >Nama</label>
                     <input type="text" class="form-control" placeholder="Nama" name="name">
@@ -61,31 +62,32 @@
                 </tr>
                 </thead>
                 <tbody>
-                  @php
+                  <?php
                     $no = 1;
 
                     function rupiah($angka){
                       $hasil_rupiah = "Rp ".number_format($angka,2,',','.');
                       return $hasil_rupiah;
                     }
-                  @endphp
-                  @foreach($products as $product)
+                  ?>
+                  <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <tr>
-                    <td>{{ $no++ }}</td>
-                    <td>{{ $product->name }}</td>
-                    <td>{{ rupiah($product->price) }}</td>
+                    <td><?php echo e($no++); ?></td>
+                    <td><?php echo e($product->name); ?></td>
+                    <td><?php echo e(rupiah($product->price)); ?></td>
                     <td>
                       <span class="d-inline-block text-truncate" style="max-width: 400px;">
-                      {{ strip_tags($product->description) }}
+                      <?php echo e(strip_tags($product->description)); ?>
+
                     </span>
                     </td>
                     <td class="text-center" >
-                      <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                      <a href="{{ route('admin.products.show', $product->id) }}" class="btn btn-info btn-sm">Show</a>
-                      <a href="{{ route('admin.products.destroy', $product->id) }}" class="btn btn-danger btn-sm" method="delete">Delete</a>
+                      <a href="<?php echo e(route('admin.products.edit', $product->id)); ?>" class="btn btn-warning btn-sm">Edit</a>
+                      <a href="<?php echo e(route('admin.products.show', $product->id)); ?>" class="btn btn-info btn-sm">Show</a>
+                      <a href="<?php echo e(route('admin.products.destroy', $product->id)); ?>" class="btn btn-danger btn-sm" method="delete">Delete</a>
                     </td>
                   </tr>
-                  @endforeach
+                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 </tbody>
                 <tfoot>
@@ -107,4 +109,6 @@
       <!-- /.row -->
 
     </div>
-  @endsection
+  <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.core', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
