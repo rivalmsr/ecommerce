@@ -65,16 +65,12 @@
                   <?php
                     $no = 1;
 
-                    function rupiah($angka){
-                      $hasil_rupiah = "Rp ".number_format($angka,2,',','.');
-                      return $hasil_rupiah;
-                    }
                   ?>
                   <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <tr>
                     <td><?php echo e($no++); ?></td>
                     <td><?php echo e($product->name); ?></td>
-                    <td><?php echo e(rupiah($product->price)); ?></td>
+                    <td>Rp <?php echo e(number_format($product->price,0,',','.')); ?></td>
                     <td>
                       <span class="d-inline-block text-truncate" style="max-width: 400px;">
                       <?php echo e(strip_tags($product->description)); ?>

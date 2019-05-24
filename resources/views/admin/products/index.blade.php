@@ -64,16 +64,12 @@
                   @php
                     $no = 1;
 
-                    function rupiah($angka){
-                      $hasil_rupiah = "Rp ".number_format($angka,2,',','.');
-                      return $hasil_rupiah;
-                    }
                   @endphp
                   @foreach($products as $product)
                   <tr>
                     <td>{{ $no++ }}</td>
                     <td>{{ $product->name }}</td>
-                    <td>{{ rupiah($product->price) }}</td>
+                    <td>Rp {{ number_format($product->price,0,',','.') }}</td>
                     <td>
                       <span class="d-inline-block text-truncate" style="max-width: 400px;">
                       {{ strip_tags($product->description) }}

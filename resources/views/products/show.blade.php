@@ -1,6 +1,6 @@
-  @extends('layouts.homeAdmin')
+  @extends('layouts.home')
   @section('content')
-    <div class="bg-white shadow-sm rounded">
+    <div class="bg-white rounded">
       <div class="row">
         <div class="col-md-12">
           <div class="card">
@@ -23,13 +23,13 @@
 
                     <p>
                       @php $rating = $avgRating ; @endphp
-                      <div class="placeholder" style="color:gray;">
+                      <div class="placeholder" style="color:lightgray;">
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
-                        <span class="small">{{ $rating }}</span>
+                        <span style="color:gray;">{{ round($rating,2) }}</span>
                       </div>
 
                       <div class="overlay" style="position: relative; top: -22px; color: yellow;">
@@ -46,7 +46,7 @@
 
                   </div>
                   <h4>
-                    {{ $product->price }}
+                    Rp {{ number_format($product->price,0,',','.') }}
                   </h4>
                   <div class="mt-4">
                     <a href="{{ route('carts.add', ['id'=> $product->id]) }}" class="btn btn-primary">Beli</a>
@@ -86,7 +86,6 @@
                         {!! $product->description !!}
                       </div>
 
-                      @foreach($productReviews as $value )
                       <div role="tabpanel" class="tab-pane fade" id="review">
 
                         <form class="" action="{{ route('products.rating', ['id' => $product->id]) }}" method="POST">
@@ -127,6 +126,7 @@
 
 
                         <!-- comments -->
+                        @foreach($productReviews as $value )
                         @if(!empty($value->comment))
 
                           <div class="card-footer card-comments rounded">
@@ -143,9 +143,7 @@
                               <!-- /.comment-text -->
                             </div>
                           </div><br>
-
                         @else
-
                         @endif
 
                       @endforeach

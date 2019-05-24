@@ -55,7 +55,7 @@
             </a>
           </div>
           <div class="col-4 text-center">
-            <a class="text-monospace font-weight-bold text-dark" href="#">
+            <a class="text-monospace font-weight-bold text-dark" href="<?php echo e(route('products.index')); ?>">
               <h1>Space Book</h1>
             </a>
           </div>

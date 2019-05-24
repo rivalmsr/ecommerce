@@ -22,8 +22,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-      var_dump($this->order->get());
-      die();
       $orders = Order::where('user_id', '=', Auth::user()->id)->get();
 
         return view('admin.orders.index', compact('orders'));
@@ -36,10 +34,15 @@ class OrderController extends Controller
      */
     public function create()
     {
+      $title = "Cart";
+      $page = "Cart";
+      $data['title'] = $title;
+      $data['page'] = $page;
+
       // Menambah kondisi untuk memvalidasi kerajang belanja, kalau keranjang kerja ada, baru bisa bikin order
       $cart = session()->get('cart');
       if ($cart) {
-        return view('admin.orders.create');
+        return view('admin.orders.create', $data);
       }else {
         return redirect()->route('orders.index')->with('success', 'Anda harus belanja terlebih dahulu !');
       }

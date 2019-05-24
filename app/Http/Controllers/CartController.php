@@ -14,7 +14,13 @@ class CartController extends Controller
      */
     public function index()
     {
-      return view('carts.index');
+      $title = "Cart";
+      $page = "Cart";
+
+      $data['title'] = $title;
+      $data['page'] = $page;
+
+      return view('carts.index', $data);
     }
 
     /**
@@ -24,6 +30,12 @@ class CartController extends Controller
      */
     public function add($id)
     {
+      $title = "Cart";
+      $page = "Cart";
+
+      $data['title'] = $title;
+      $data['page'] = $page;
+
         $product = Product::find($id);
         if(!$product){
           abort(404);
@@ -43,7 +55,7 @@ class CartController extends Controller
           ];
 
           session()->put('cart', $cart);
-          return redirect()->route('carts.index')->with('success', 'Product added toc art successfully !');
+          return redirect()->route('carts.index', $data)->with('success', 'Product added toc art successfully !');
         }
 
       //if cart no empty then check if this product exist then icnrement quantity

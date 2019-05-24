@@ -16,15 +16,25 @@ class ProductController extends Controller
     $this->productReview = new ProductReview();
   }
 
-  public function index(){
-    $products = Product::all();
-      return view('products.index', compact('products'));
+  public function index(Request $request){
+    $title = "Home";
+    $page = "Home";
+    $data['title'] = $title;
+    $data['page'] = $page;
+    $productInstance = new product();
+    $products = $productInstance->orderProducts($request->get('order_by'));
+    return view('products.index', $data, compact('products'));
   }
 
   public function show($id){
+    $title = "Produk Review";
+    $page = "Produk Review";
+
+    $data['title']= $title;
+    $data['page'] = $page;
     $data['product'] = $this->product::find($id);
     $data['productReviews'] = $this->productReview->getProductReview($id);
-    $data['avgRating'] = $this->productReview->getProductRating();
+    $data['avgRating'] = $this->productReview->getProductRating($id);
 
     if($data){
       return view('products.show', $data, compact('product'));

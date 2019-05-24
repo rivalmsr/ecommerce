@@ -12,8 +12,8 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th style="width:50%">Product</th>
-                    <th style="width:10%">Price</th>
+                    <th style="width:45%">Product</th>
+                    <th style="width:15%">Price</th>
                     <th style="width:8%">Quantity</th>
                     <th style="width:22%" class="text-center">Subtotal</th>
                     <th style="width:10%">Aksi</th>
@@ -39,11 +39,11 @@
                           </div>
                       </div>
                     </td>
-                    <td data-th="Price"><?php echo e($product['price']); ?></td>
+                    <td data-th="Price">Rp <?php echo e(number_format($product['price'],0,',','.')); ?></td>
                     <td data-th="Quantity">
                       <input type="number" value="<?php echo e($product['quantity']); ?>" class="form-control quantity">
                     </td>
-                    <td data-th="Subtotal" class="text-center">$<?php echo e($product['price'] * $product['quantity']); ?></td>
+                    <td data-th="Subtotal" class="text-center">Rp <?php echo e(number_format($product['price'] * $product['quantity'],0,',','.')); ?></td>
                     <td class="actions" data-th="">
                       <button class="btn btn-info btn-sm update-cart" data-id="<?php echo e($id); ?>">Update</button>
                       <button class="btn btn-danger btn-sm mt-2 remove-from-cart" data-id="<?php echo e($id); ?>">Remove</button>
@@ -54,14 +54,14 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th style="width:50%">Product</th>
-                    <th style="width:10%">Price</th>
+                    <th style="width:45%">Product</th>
+                    <th style="width:15%">Price</th>
                     <th style="width:8%">Quantity</th>
                     <th style="width:22%" class="text-center">Subtotal</th>
                     <th style="width:10%">Aksi</th>
                   </tr>
                   <tr class="visible-xs">
-                    <td class="text-center" colspan="5"> <strong>Total <?php echo e($total); ?></strong> </td>
+                    <td class="text-center" colspan="5"> <strong>Total Rp <?php echo e(number_format($total,0,',','.')); ?></strong> </td>
                   </tr>
                   <tr>
                     <td colspan="5">
@@ -126,4 +126,4 @@
     </script>
   <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.homeAdmin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('layouts.home', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

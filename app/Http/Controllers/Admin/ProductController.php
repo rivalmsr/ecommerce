@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\ProductsReview;
+use App\Models\ProductReview;
 use Image;
 use App\User;
 use Auth;
@@ -15,7 +15,8 @@ class ProductController extends Controller
 
     public function __construct(){
       $this->middleware('auth');
-      $this->product = new Product;
+      $this->product = new Product();
+      $this->productReview = new ProductReview();
     }
     /**
      * Display a listing of the resource.
@@ -80,10 +81,20 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-      $products = $this->product::find($id);
-      return view('admin.products.show', compact('products'));
+    { $title = "Review Produk";
+      $page = "Review Produk";
+      $data['title'] = $title;
+      $data['page'] = $page;
+      
+      $data['product'] = $this->product::find($id);
+      $data['productReviews'] = $this->productReview->getProductReview($id);
+      $data['avgRating'] = $this->productReview->getProductRating($id);
 
+      if($data){
+        return view('products.show', $data, compact('product'));
+      }else{
+        return redirect('/products')->with('erros','Produk tidak ditemukan !');
+      }
     }
 
     /**

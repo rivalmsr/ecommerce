@@ -1,7 +1,7 @@
 <?php /* /home/rivalmsr/Documents/rdeveloper/laravel/ecommerce-adminLTE/resources/views/products/show.blade.php */ ?>
   
   <?php $__env->startSection('content'); ?>
-    <div class="bg-white shadow-sm rounded">
+    <div class="bg-white rounded">
       <div class="row">
         <div class="col-md-12">
           <div class="card">
@@ -25,13 +25,13 @@
 
                     <p>
                       <?php $rating = $avgRating ; ?>
-                      <div class="placeholder" style="color:gray;">
+                      <div class="placeholder" style="color:lightgray;">
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
                         <i class="far fa-star"></i>
-                        <span class="small"><?php echo e($rating); ?></span>
+                        <span style="color:gray;"><?php echo e(round($rating,2)); ?></span>
                       </div>
 
                       <div class="overlay" style="position: relative; top: -22px; color: yellow;">
@@ -48,7 +48,7 @@
 
                   </div>
                   <h4>
-                    <?php echo e($product->price); ?>
+                    Rp <?php echo e(number_format($product->price,0,',','.')); ?>
 
                   </h4>
                   <div class="mt-4">
@@ -90,7 +90,6 @@
 
                       </div>
 
-                      <?php $__currentLoopData = $productReviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                       <div role="tabpanel" class="tab-pane fade" id="review">
 
                         <form class="" action="<?php echo e(route('products.rating', ['id' => $product->id])); ?>" method="POST">
@@ -131,6 +130,7 @@
 
 
                         <!-- comments -->
+                        <?php $__currentLoopData = $productReviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <?php if(!empty($value->comment)): ?>
 
                           <div class="card-footer card-comments rounded">
@@ -149,9 +149,7 @@
                               <!-- /.comment-text -->
                             </div>
                           </div><br>
-
                         <?php else: ?>
-
                         <?php endif; ?>
 
                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -173,4 +171,4 @@
 
   <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.homeAdmin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('layouts.home', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
