@@ -47,11 +47,29 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">List Produk</h3>
+              <div class="row">
+                <div class="col-md-4">
+                  <h3 class="card-title">List Produk</h3>
+                </div>
+                <div class="col-md-8">
+                  <div class="col-md-4 offset-md-8">
+                    <div class="form-group">
+                      <select id="order_field" class="form-control" >
+                        <option value="" disabled selected>Urutkan</option>
+                        <option value="best_seller">Best Seller</option>
+                        <option value="terbaik">Terbaik (Berdasarkan Rating)</option>
+                        <option value="termurah">Termurah</option>
+                        <option value="termahal">Termahal</option>
+                        <option value="terbaru">Terbaru</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example2" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>No</th>
@@ -61,28 +79,30 @@
                   <th>Aksi</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="product-list">
                   <?php
                     $no = 1;
-
                   ?>
-                  <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <tr>
-                    <td><?php echo e($no++); ?></td>
-                    <td><?php echo e($product->name); ?></td>
-                    <td>Rp <?php echo e(number_format($product->price,0,',','.')); ?></td>
-                    <td>
-                      <span class="d-inline-block text-truncate" style="max-width: 400px;">
-                      <?php echo e(strip_tags($product->description)); ?>
 
-                    </span>
-                    </td>
-                    <td class="text-center" >
-                      <a href="<?php echo e(route('admin.products.edit', $product->id)); ?>" class="btn btn-warning btn-sm">Edit</a>
-                      <a href="<?php echo e(route('admin.products.show', $product->id)); ?>" class="btn btn-info btn-sm">Show</a>
-                      <a href="<?php echo e(route('admin.products.destroy', $product->id)); ?>" class="btn btn-danger btn-sm" method="delete">Delete</a>
-                    </td>
-                  </tr>
+                  <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idx => $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+                    <tr>
+                      <td><?php echo e($no++); ?></td>
+                      <td><?php echo e($product->name); ?></td>
+                      <td>Rp <?php echo e(number_format($product->price,0,',','.')); ?></td>
+                      <td>
+                        <span class="d-inline-block text-truncate" style="max-width: 400px;">
+                        <?php echo e(strip_tags($product->description)); ?>
+
+                      </span>
+                      </td>
+                      <td class="text-center" >
+                        <a href="<?php echo e(route('admin.products.edit', $product->id)); ?>" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="<?php echo e(route('admin.products.show', $product->id)); ?>" class="btn btn-info btn-sm">Show</a>
+                        <a href="<?php echo e(route('admin.products.destroy', $product->id)); ?>" class="btn btn-danger btn-sm" method="delete">Delete</a>
+                      </td>
+                    </tr>
+
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 </tbody>
@@ -105,6 +125,47 @@
       <!-- /.row -->
 
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      // $(document).ready(function(){
+      //   $('#order_field').change(function(){
+      //     // window.location.href = '/products?order_by='+ $(this).val();
+      //
+      //       $.ajax({
+      //         type:'GET',
+      //         url:'/admin/products',
+      //         data:{
+      //             order_by: $(this).val(),
+      //         },
+      //         dataType:'json',
+      //         success:function(data){
+      //             var products ='';
+      //             var no = 1;
+      //             $.each(data,function(idx, product){
+      //                 products += '<tr>'+
+      //                 '<td>'+ no++ +'</td>'+
+      //                 '<td>'+ product.name +'</td>'+
+      //                 '<td>'+ product.price +'</td>'+
+      //                 '<td class=" text-truncate" style="max-width: 350px;">'+ product.description +'</td>'+
+      //                 '<td class="text-center">'+
+      //                  '<a href="/admin/products/'+product.id+'/edit" class="btn btn-warning btn-sm">Edit</a>'+
+      //                  '<a href="/admin/products/'+product.id+'" class="btn btn-info btn-sm" style="margin: 0px 2px 0px 2px;">Show</a>'+
+      //                  '<a href="/admin/products/'+product.id+'" class="btn btn-danger btn-sm">Delete</a>'+
+      //                 '</td>'+
+      //               '</tr>';
+      //         });
+      //
+      //         $('#product-list').html(products);
+      //     // update element
+      //         },
+      //         error:function(data){
+      //             alert('Unable to handle request');
+      //         }
+      //     });
+      //   });
+      // });
+    </script>
+
   <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.core', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

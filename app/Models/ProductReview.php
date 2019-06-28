@@ -30,4 +30,10 @@ class ProductReview extends Model
                     ->where('product_reviews.product_id','=',$id)
                     ->avg('product_reviews.rating');
   }
+
+  public function getProductRatingAll(){
+    return $rating = DB::table('product_reviews')
+                      ->where('product_reviews.product_id')
+                      ->avg('product_reviews.rating');
+  }
 }

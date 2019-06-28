@@ -23,15 +23,24 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $products = $this->product->getUserId();
+      $title = "Dashboard";
+      $page = "Dashboard";
+      $data['title'] = $title;
+      $data['page'] = $page;
+      // $products = $this->product->getUserId();
+      $products = $this->product->orderAdminProducts($request->get('order_by'));
+      
+      if($request->ajax()) {
+        return response()->json($products, 200);
+      }
       return view('admin.products.index', compact('products'));
   }
 
     /**
-     * Show the form for creating a new resource.
      *
+     * Show the form for creating a new resource.
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -85,7 +94,7 @@ class ProductController extends Controller
       $page = "Review Produk";
       $data['title'] = $title;
       $data['page'] = $page;
-      
+
       $data['product'] = $this->product::find($id);
       $data['productReviews'] = $this->productReview->getProductReview($id);
       $data['avgRating'] = $this->productReview->getProductRating($id);

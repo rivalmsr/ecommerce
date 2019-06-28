@@ -48,7 +48,7 @@
                       <button class="btn btn-info btn-sm update-cart" data-id="<?php echo e($id); ?>">Update</button>
                       <button class="btn btn-danger btn-sm mt-2 remove-from-cart" data-id="<?php echo e($id); ?>">Remove</button>
                     </td>
-                  </tr>
+                  </tr>z
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   <?php endif; ?>
                 </tbody>

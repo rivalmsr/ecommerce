@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Product;
 use App\Models\ProductReview;
 use Image;
@@ -21,12 +22,26 @@ class ProductController extends Controller
     $page = "Home";
     $data['title'] = $title;
     $data['page'] = $page;
-    $productInstance = new product();
+    $productInstance = new Product();
     $products = $productInstance->orderProducts($request->get('order_by'));
-    return view('products.index', $data, compact('products'));
+
+    if($request->ajax()){
+      return response()->json($products, 200);
+    }
+
+    $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $itemCollection = collect($products);
+        $perPage = 8;
+        $currentPageItems = $itemCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
+        $paginatedItems = new LengthAwarePaginator($currentPageItems, count($itemCollection), $perPage);
+        $paginatedItems->setPath($request->url());
+      return view('products.index', $data, ['products' => $paginatedItems]);
   }
 
   public function show($id){
+    // review count
+    // $this->product->IncrementsView($id);
+
     $title = "Produk Review";
     $page = "Produk Review";
 

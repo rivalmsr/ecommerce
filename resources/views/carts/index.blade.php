@@ -48,7 +48,7 @@
                       <button class="btn btn-info btn-sm update-cart" data-id="{{$id}}">Update</button>
                       <button class="btn btn-danger btn-sm mt-2 remove-from-cart" data-id="{{$id}}">Remove</button>
                     </td>
-                  </tr>
+                  </tr>z
                   @endforeach
                   @endif
                 </tbody>

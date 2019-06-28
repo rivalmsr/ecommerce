@@ -48,6 +48,10 @@
                   <h4>
                     Rp {{ number_format($product->price,0,',','.') }}
                   </h4>
+                  <h6>
+                    views : {{ $product->views }}
+                  </h6>
+
                   <div class="mt-4">
                     <a href="{{ route('carts.add', ['id'=> $product->id]) }}" class="btn btn-primary">Beli</a>
                   </div>
@@ -88,28 +92,28 @@
 
                       <div role="tabpanel" class="tab-pane fade" id="review">
 
-                        <form class="" action="{{ route('products.rating', ['id' => $product->id]) }}" method="POST">
+                        <form id="form_review" method="POST">
                           @csrf
 
                           <h5>Rating</h5>
                           <div class="form-check form-check-inline">
-                            <input class="form-check-input product-rating" type="radio" name="rating" id="inlineRadio1" value="1.0">
+                            <input class="form-check-input product-rating" type="radio" name="rating" id="rating" value="1.0">
                             <label class="form-check-label">1</label>
                           </div>
                           <div class="form-check form-check-inline">
-                            <input class="form-check-input product-rating" type="radio" name="rating" id="inlineRadio2" value="2.0">
+                            <input class="form-check-input product-rating" type="radio" name="rating" id="rating" value="2.0">
                             <label class="form-check-label">2</label>
                           </div>
                           <div class="form-check form-check-inline">
-                            <input class="form-check-input product-rating" type="radio" name="rating" id="inlineRadio3" value="3.0">
+                            <input class="form-check-input product-rating" type="radio" name="rating" id="rating" value="3.0">
                             <label class="form-check-label">3</label>
                           </div>
                           <div class="form-check form-check-inline">
-                            <input class="form-check-input product-rating" type="radio" name="rating" id="inlineRadio4" value="4.0">
+                            <input class="form-check-input product-rating" type="radio" name="rating" id="rating" value="4.0">
                             <label class="form-check-label">4</label>
                           </div>
                           <div class="form-check form-check-inline">
-                            <input class="form-check-input product-rating" type="radio" name="rating" id="inlineRadio5" value="5.0">
+                            <input class="form-check-input product-rating" type="radio" name="rating" id="rating" value="5.0">
                             <label class="form-check-label">5</label>
                           </div>
 
@@ -119,7 +123,7 @@
                           </div>
 
                           <div class="form-group">
-                            <button type="submit" class="btn btn-primary" name="button">Kirim</button>
+                            <button id="postReview" type="submit" class="btn btn-primary" name="button">Kirim</button>
                           </div>
 
                         </form>
@@ -129,7 +133,7 @@
                         @foreach($productReviews as $value )
                         @if(!empty($value->comment))
 
-                          <div class="card-footer card-comments rounded">
+                          <div id="post_review" class="card-footer card-comments rounded">
                             <div class="card-comment">
                               <!-- User image -->
                               <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle img-sm" alt="User Image">
@@ -162,5 +166,26 @@
 
       </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $('#postReview').click(function(e) {
+         e.preventDefault();
+         console.log('posting review');
+         var ratingId = $('input[name="rating"]').val();
+         var commentId = $('textarea[name="comment"]').val();
+         console.log(ratingId);
+         console.log(commentId);
+
+         $.ajax({
+            url: "{{ route('products.rating', ['id' => $product->id]) }}",
+            type: "POST",
+            data: {_token: '{{ csrf_token() }}', rating:ratingId, comment:commentId},
+
+            success: function(response){
+              window.location.reload();
+            }
+         });
+     });
+    </script>
 
   @endsection

@@ -124,6 +124,9 @@
                   <!-- Right Side Of Navbar -->
                   <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
+                    <li class="nav-item">
+                      <a class="nav-link" href="<?php echo e(route('admin.products.index')); ?>">Dashboard</a>
+                    </li>
                     <?php if(auth()->guard()->guest()): ?>
                     <li class="nav-item">
                       <a class="nav-link" href="<?php echo e(route('login')); ?>"><?php echo e(__('Login')); ?></a>
@@ -186,7 +189,7 @@
 
 
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- jQuery -->
     <script src="<?php echo e(asset('plugins/jquery/jquery.min.js')); ?>"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -237,20 +240,20 @@
       $(function () {
         // Replace the <textarea id="editor1"> with a CKEditor
         // instance, using default configuration.
-        ClassicEditor
-          .create(document.querySelector('#editor1'))
-          .then(function (editor) {
-            // The editor instance
-          })
-          .catch(function (error) {
-            console.error(error)
-          })
+        // ClassicEditor
+        //   .create(document.querySelector('#editor1'))
+        //   .then(function (editor) {
+        //     // The editor instance
+        //   })
+        //   .catch(function (error) {
+        //     console.error(error)
+        //   })
 
         // bootstrap WYSIHTML5 - text editor
 
-        $('.textarea').wysihtml5({
-          toolbar: { fa: true }
-        })
+        // $('.textarea').wysihtml5({
+        //   toolbar: { fa: true }
+        // })
 
         // Function DataTable
         $("#example1").DataTable();

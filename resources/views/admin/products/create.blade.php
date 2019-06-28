@@ -15,6 +15,15 @@
             </div>
 
             <div class="form-group">
+              <label>Jenis Produk</label>
+              <select class="form-control" name="category">
+                <option value="Tutorial">Tutorial</option>
+                <option value="Buku Pelajaran">Buku Pelajaran</option>
+                <option value="Novel">Novel</option>
+              </select>
+            </div>
+
+            <div class="form-group">
               <label>Harga</label>
               <input type="text" name="price" class="form-control" placeholder="Harga Produk" required>
             </div>
